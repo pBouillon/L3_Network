@@ -112,8 +112,3 @@ int main (int argc, char **argv)
     close (sock) ;
     exit (EXIT_SUCCESS) ;
 }
-
-/*
-        printf("Received packet from %s:%d\nData: %s\n\n",
-        inet_ntoa(si_other.sin_addr), ntohs(si_other.sin_port), buf);
-*/
