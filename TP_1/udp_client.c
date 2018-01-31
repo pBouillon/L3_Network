@@ -20,10 +20,10 @@
 
 
 /*************************************************************************/
-/* client UDP qui envoie une chaine de caracteres                        */
-/* au serveur UDP                                                        */
+/* client UDP qui envoie une chaine de caracteres  			 */
+/* au serveur  UDP                              			 */
 /* l'adresse IP du serveur et le numero de port sont passes en arguments */
-/* recupere la reponse du serveur et l'affiche                           */
+/* recupere la reponse du serveur et l'affiche 				 */
 /*************************************************************************/
 
 int main (int argc, char ** argv ) {
