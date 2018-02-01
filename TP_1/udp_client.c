@@ -95,7 +95,7 @@ int main (int argc, char ** argv ) {
     nb = sendto (
         sd,                           // socket descriptor
         requete,                      // message a envoyer
-        sizeof(requete),              // taille du message
+        strlen (requete) + 1,         // taille du message
         0,                            // flags
         (struct sockaddr *)&ser_addr, // adresse de destination
         addrlen                       // taille de l'adresse
@@ -118,7 +118,7 @@ int main (int argc, char ** argv ) {
     nb = recvfrom (
         sd,                           // socket descriptor
         reponse,                      // buffer pour stocker la reponse
-        sizeof(reponse),              // taille du message a stocker
+        strlen (reponse),             // taille du message a stocker
         0,                            // flags
         (struct sockaddr *)&cli_addr, // adresse source
         &addrlen                      // taille de l'adresse
