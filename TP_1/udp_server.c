@@ -4,22 +4,29 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
+
 /* sorties */
 #include <stdio.h>
+
 /* memset */
 #include <string.h>
+
 /* atoi */
 #include <stdlib.h>
+
 /* toupper */
 #include <ctype.h>
 
+
 /* taille du buffer */
-#define  BUFF_SIZE  256 
+#define  BUFF_SIZE  256
+
 
 int main (int argc, char **argv)
 {
     struct sockaddr_in serv_addr ; /* structure serveur */
     struct sockaddr_in cli_addr  ; /* structure client  */
+    struct in_addr addr ; /* structure stockage IP */
     char buff[BUFF_SIZE] ; /* buffer pour reception/reponse  */
     socklen_t addr_len ;   /* taille de strucure sockaddr_in */
     int cpt  ; /* compteur pour parsing du buffer */
@@ -50,13 +57,23 @@ int main (int argc, char **argv)
 
     serv_addr.sin_family = AF_INET ;
     serv_addr.sin_port   = htons (atoi(argv[1])) ;
-    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY) ;
+
+    addr.s_addr = INADDR_ANY ;
+    serv_addr.sin_addr = addr ;
+
+    /* initialisation de la structure client */
+    memset (
+        &cli_addr,
+        0,
+        sizeof (cli_addr)
+    ) ;
 
     /* attachement de la structure a la socket */
+    addr_len = sizeof (serv_addr) ;
     ret = bind (
         sock,
         (struct sockaddr *)&serv_addr,
-        sizeof (serv_addr)
+        addr_len
     ) ;
     if (ret < 0)
     {
@@ -68,7 +85,7 @@ int main (int argc, char **argv)
     ret = recvfrom (
         sock,
         buff,
-        BUFF_SIZE,
+        sizeof (buff) + 1,
         0,
         (struct sockaddr *)&cli_addr,
         &addr_len
@@ -91,11 +108,11 @@ int main (int argc, char **argv)
     printf ("Envoi de: \n\t%s\n", buff) ;
 
     /* envoi du message en majuscule */
-    addr_len = sizeof (cli_addr) ;
+    addr_len = sizeof (serv_addr) ;
     ret = sendto (
         sock,
         buff,
-        strlen (buff),
+        strlen (buff) + 1,
         0,
         (struct sockaddr *)&cli_addr,
         addr_len
