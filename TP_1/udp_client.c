@@ -18,7 +18,6 @@
 /* include pour exit */
 #include <stdlib.h>
 
-
 /*************************************************************************/
 /* client UDP qui envoie une chaine de caracteres  			 */
 /* au serveur  UDP                              			 */
@@ -71,7 +70,7 @@ int main (int argc, char ** argv ) {
 /* 2. on ne nomme pas le point de communication
      le systeme d'exploitation le fera pour nous */
 
-/* 3. remplissage des parties pertinentes (famaille, adresse, port) pour s'adresser au serveur */
+/* 3. remplissage des parties pertinentes (famille, adresse, port) pour s'adresser au serveur */
     ser_addr.sin_family = AF_INET ;
     ser_addr.sin_port = htons(atoi(argv[2])) ;
 
@@ -118,7 +117,7 @@ int main (int argc, char ** argv ) {
     nb = recvfrom (
         sd,                           // socket descriptor
         reponse,                      // buffer pour stocker la reponse
-        strlen (reponse),             // taille du message a stocker
+        strlen (reponse) + 1,         // taille du message a stocker
         0,                            // flags
         (struct sockaddr *)&cli_addr, // adresse source
         &addrlen                      // taille de l'adresse
