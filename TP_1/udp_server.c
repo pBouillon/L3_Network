@@ -21,6 +21,11 @@
 /* taille du buffer */
 #define  BUFF_SIZE  256
 
+/*******************************************/
+/* Serveur UDP qui renvoi une chaine de    */
+/* caractere et la retourne en majuscule   */
+/* Le numero de port est passe en argument */
+/*******************************************/
 
 int main (int argc, char **argv)
 {

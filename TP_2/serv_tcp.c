@@ -24,28 +24,24 @@
 #define  REQUIRED_ARGC  2
 
 
-/***/
-/* */
-/* */
-/* */
-/***/
+/*******************************************/
+/* Serveur TCP qui renvoi une chaine de    */
+/* caractere et la retourne en majuscule   */
+/* Le numero de port est passe en argument */
+/*******************************************/
 
 
 int main (int argc, char **argv)
 {
-    struct sockaddr_in cli_in  ; /* */
-    struct sockaddr_in serv_in ; /* */
-
-    socklen_t addrlen ; /* */
-
-    char buff[BUFF_SIZE] ;     /* buffer pour le message recu et a envoyer */
-
+    char buff[BUFF_SIZE] ; /* message recu et a envoyer */
     int cpt ;       /* compteur */
-    int cli_desc ;  /* */
-    int err_ret  ;   /* controle du retour d'erreur */
-    int nb_ret   ;   /* controle des valeurs des primitives */
+    int cli_desc ;  /* descripteur de socket client */
+    int err_ret  ;  /* controle du retour d'erreur */
+    int nb_ret   ;  /* controle des valeurs des primitives */
     int sock_desc ; /* descripteur de socket */
-
+    struct sockaddr_in cli_in  ; /* structure client */
+    struct sockaddr_in serv_in ; /* structure serveur */
+    socklen_t addrlen ;          /* taille de la struct sockaddr_in */
 
     /* controle des parametres */
     if (argc != REQUIRED_ARGC)
@@ -69,7 +65,7 @@ int main (int argc, char **argv)
         sizeof (struct sockaddr_in)
     ) ;
     serv_in.sin_addr.s_addr = htonl (INADDR_ANY) ;
-    serv_in.sin_port   = htons (atoi(argv[1]) ;
+    serv_in.sin_port   = htons (atoi(argv[1])) ;
     serv_in.sin_family = AF_INET ;
 
     /* liaison structure serveur/socket */
