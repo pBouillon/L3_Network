@@ -17,6 +17,9 @@
 /* EXIT constants */
 #include <stdlib.h>
 
+/* buffer */
+#include <ctype.h>
+
 /* MACROS */
 #define  BUFF_SIZE      256
 #define  LISTEN_BCKLOG  1
@@ -46,7 +49,7 @@ int main (int argc, char **argv)
     /* controle des parametres */
     if (argc != REQUIRED_ARGC)
     {
-        printf ("usage: ./%s port", argv[0]) ;
+        printf ("usage: %s port\n", argv[0]) ;
         exit (EXIT_FAILURE) ;
     }
 
@@ -72,7 +75,7 @@ int main (int argc, char **argv)
     addrlen = sizeof (serv_in) ;
 
     err_ret = bind (
-        socket_desc,
+        sock_desc,
         (struct sockaddr *)&serv_in,
         addrlen
     ) ;
@@ -85,7 +88,7 @@ int main (int argc, char **argv)
 
     /* ecoute */
     err_ret = listen (
-        socket_desc,
+        sock_desc,
         LISTEN_BCKLOG
     ) ;
 
@@ -95,7 +98,7 @@ int main (int argc, char **argv)
     }
 
     /* acceptation de la connection entrante */
-    mesmet (
+    memset (
         &cli_in,
         0,
         sizeof (cli_in)
@@ -104,8 +107,8 @@ int main (int argc, char **argv)
     addrlen = sizeof (cli_in) ;
     cli_desc = accept (
         sock_desc,
-        (struct sockaddr *)&cli_addr,
-        addrlen
+        (struct sockaddr *)&cli_in,
+        &addrlen
     ) ;
 
     /* reception de la chaine */
@@ -120,7 +123,7 @@ int main (int argc, char **argv)
         perror ("read: Impossible de lire sur le port\n") ;
         exit (EXIT_FAILURE) ;
     } else {
-        printf ("%d caracteres recus", nb_ret) ;
+        printf ("%d caracteres recus\n", nb_ret) ;
     }
 
     /* manipulation de la chaine recue */
@@ -144,7 +147,7 @@ int main (int argc, char **argv)
         perror ("write: envoi impossible\n") ;
         exit (EXIT_FAILURE) ;
     } else {
-        printf ("%d caracteres envoyes", nb_ret) ;
+        printf ("%d caracteres envoyes\n", nb_ret) ;
     }
 
     /* fermeture du serveur */

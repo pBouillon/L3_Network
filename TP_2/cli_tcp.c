@@ -63,7 +63,7 @@ int main (int argc, char **argv)
     if (argc != EXPECTED_ARGC)
     {
         printf (
-            "usage: ./%s @IP_serv nb_port\n",
+            "usage: %s @IP_serv nb_port\n",
             argv[0]
         ) ;
         exit (EXIT_FAILURE) ;
