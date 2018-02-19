@@ -77,7 +77,7 @@ int main (int argc, char ** argv ) {
 	&cli_addr,
 	0,
 	sizeof (struct sockaddr_in)
-    ) ;Envoie a l'IP: 192.168.141.210
+    ) ;
     memset (
 	&ser_addr,
 	0,
