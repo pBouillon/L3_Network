@@ -20,8 +20,10 @@
 /* buffer */
 #include <ctype.h>
 
-/* signals */
+/* forks */
 #include <signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 /* MACROS */
 #define  BUFF_SIZE      256
@@ -47,10 +49,11 @@ int fork_cpt ;
 
 void close_tcp()
 {
-    int cpt ;
+    int cpt, status ;
     for (cpt = 0; cpt < fork_cpt; ++cpt)
     {
         close (cli_desc[fork_cpt]) ;
+        waitpid(pids[fork_cpt], &status, NO_FLAG) ;
         exit (EXIT_SUCCESS) ;
     }
     close (sock_desc) ;
@@ -192,6 +195,7 @@ int main (int argc, char **argv)
                 (struct sockaddr *)&cli_in,
                 &addrlen
             ) ;
+            printf ("\n**************\n\t%s\n**************\n", "Nouvelle connection") ;
 
 	    /* reception de la chaine */
             nb_ret = read (
